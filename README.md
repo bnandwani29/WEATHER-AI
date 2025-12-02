@@ -1,49 +1,47 @@
-Voice Weather Assistant — Python
-<a href="#"> <img src="./.github/assets/weather-icon.png" alt="Weather Assistant Logo" width="100" height="100"> </a>
+<h1>Voice Weather Assistant — Python</h1>
+<br><br>
 
+<p>
 A complete starter project for building a voice-controlled weather assistant using FastAPI, JavaScript Voice APIs, and OpenWeatherMap.
+</p>
 
-This project demonstrates:
+<p>This project demonstrates:</p>
+<ul>
+  <li>A fully functional voice-first weather assistant</li>
+  <li>Real-time speech-to-text and text-to-speech using browser APIs</li>
+  <li>Weather data fetched from the OpenWeatherMap API</li>
+  <li>Clean and modern UI with glassmorphism styling</li>
+  <li>Natural-language understanding for extracting:<br>
+     ❓ Intent (current vs tomorrow forecast)<br>
+     🏙️ City name
+  </li>
+  <li>Easy frontend interaction powered by fetch</li>
+  <li>A backend built with FastAPI, ready for extension, deployment, and hosting</li>
+</ul>
 
-A fully functional voice-first weather assistant
+<p>
+This weather voice assistant is compatible with ANY custom web frontend and deployable on Render, Vercel, Netlify, Railway, and more.
+</p>
 
-Real-time speech-to-text and text-to-speech using browser APIs
+<hr>
 
-Weather data fetched from the OpenWeatherMap API
+<h2>🎯 Project Overview</h2>
 
-A clean and modern UI with glassmorphism styling
+<ul>
+  <li>🎙️ Voice Weather Assistant (speech input + spoken output)</li>
+  <li>🌦️ Real-time weather using OpenWeatherMap API</li>
+  <li>🧠 Lightweight NLU system (nlu.py)</li>
+  <li>⚡ FastAPI backend (server/api.py)</li>
+  <li>🎨 Modern UI (client/index.html + CSS + JS)</li>
+  <li>🧪 Clean modular code structure</li>
+  <li>🚀 Easy local run & deployment</li>
+</ul>
 
-Natural-language understanding for extracting:
+<hr>
 
-❓ Intent (current vs tomorrow forecast)
+<h2>📁 Project Structure</h2>
 
-🏙️ City name
-
-Easy frontend interaction powered by fetch
-
-A backend built with FastAPI, ready for extension, deployment, and hosting
-
-This weather voice assistant is compatible with ANY custom web frontend and deployable on any hosting environment (Render, Vercel, Netlify, Railway, etc.).
-
-🎯 Project Overview
-
-This project includes:
-
-🎙️ Voice Weather Assistant with speech input + spoken output
-
-🌦️ Real-time weather using the OpenWeatherMap API
-
-🧠 Lightweight NLU system (nlu.py)
-
-⚡ FastAPI backend (server/api.py)
-
-🎨 Beautiful modern UI (client/index.html + CSS + JS)
-
-🧪 Clean modular code structure
-
-🚀 Simple to run locally or deploy
-
-📁 Project Structure
+<pre>
 project/
 │
 ├── client/
@@ -63,140 +61,144 @@ project/
 ├── local_agent.py
 ├── .env.example
 └── README.md
+</pre>
 
-🧩 How It Works
-🔹 Voice Input
+<hr>
 
-Uses SpeechRecognition API to capture user speech, convert it to text, and send it to the FastAPI backend.
+<h2>🧩 How It Works</h2>
 
-🔹 Natural Language Understanding (NLU)
+<ul>
+  <li><strong>Voice Input</strong> – SpeechRecognition API converts speech to text.</li>
+  <li><strong>NLU (nlu.py)</strong> – Extracts city and weather intent.</li>
+  <li><strong>Weather API (weather.py)</strong> – Fetches temperature & conditions.</li>
+  <li><strong>Voice Output</strong> – SpeechSynthesis speaks the assistant response.</li>
+</ul>
 
-nlu.py extracts:
+<hr>
 
-The city
+<h2>🛠️ Installation & Setup</h2>
 
-Whether the user asked for current weather or tomorrow’s forecast
+<p>1️⃣ Clone the repo</p>
 
-🔹 Weather API
-
-weather.py fetches:
-
-Temperature
-
-Weather condition
-
-Forecast
-
-🔹 Voice Output
-
-Uses SpeechSynthesis API to speak the assistant’s response.
-
-🛠️ Installation & Setup
-1️⃣ Clone the repo
+<pre>
 git clone https://github.com/your-username/WEATHER-AI.git
 cd WEATHER-AI
+</pre>
 
-2️⃣ Create a virtual environment
-Windows
+<p>2️⃣ Create virtual environment</p>
+
+<pre>
+# Windows
 python -m venv venv
 .\venv\Scripts\activate
 
-macOS / Linux
+# macOS / Linux
 python3 -m venv venv
 source venv/bin/activate
+</pre>
 
-3️⃣ Install Python dependencies
+<p>3️⃣ Install dependencies</p>
+
+<pre>
 pip install -r requirements.txt
+</pre>
 
-4️⃣ Add your API key
+<p>4️⃣ Add your API key</p>
 
-Create .env file:
-
+<pre>
 OPENWEATHER_KEY=YOUR_KEY_HERE
+</pre>
 
-🚀 Running the Project
-Start the FastAPI backend
+<hr>
+
+<h2>🚀 Running the Project</h2>
+
+<p><strong>Start FastAPI backend</strong></p>
+
+<pre>
 python -m uvicorn server.api:app --reload --host 127.0.0.1 --port 8000
+</pre>
 
+<p>Backend health check:<br>
+<a href="http://127.0.0.1:8000/health">http://127.0.0.1:8000/health</a>
+</p>
 
-Backend health check:
-➡️ http://127.0.0.1:8000/health
+<p><strong>Start frontend</strong></p>
 
-Start the frontend
-
-Open a new terminal:
-
+<pre>
 cd client
 python -m http.server 8080
+</pre>
 
+<p>Open frontend:<br>
+<a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a>
+</p>
 
-Frontend available at:
-➡️ http://127.0.0.1:8080
+<hr>
 
-📡 API Endpoints
-POST /agent/query
+<h2>📡 API Endpoint</h2>
 
-Request:
+<p><strong>POST</strong> /agent/query</p>
 
+<p>Request:</p>
+<pre>
 { "text": "What's the weather in Mumbai?" }
+</pre>
 
-
-Response:
-
+<p>Response:</p>
+<pre>
 { "reply": "In Mumbai, it's 27°C and smoke." }
+</pre>
 
-🧪 Example Voice Queries
+<hr>
 
-Try speaking:
+<h2>🧪 Example Voice Queries</h2>
 
-“What’s the weather in Delhi?”
+<ul>
+  <li>“What’s the weather in Delhi?”</li>
+  <li>“Will it rain tomorrow in Pune?”</li>
+  <li>“Weather in Jaipur right now?”</li>
+  <li>“Tomorrow weather for Chennai.”</li>
+</ul>
 
-“Will it rain tomorrow in Pune?”
+<hr>
 
-“Weather in Jaipur right now?”
+<h2>🔐 Environment & Security</h2>
 
-“Tell me tomorrow’s weather for Chennai.”
+<ul>
+  <li>.env.example is safe to commit</li>
+  <li>.env is ignored — never commit real API keys</li>
+</ul>
 
-🔐 Environment & Security
+<hr>
 
-This project includes:
+<h2>🚀 Deployment Options</h2>
 
-✔ .env.example (safe to commit)
-❌ .env is ignored automatically
-✔ OpenWeather API key stored securely
+<ul>
+  <li>Render</li>
+  <li>Railway</li>
+  <li>Docker</li>
+  <li>Vercel (frontend) + Render (backend)</li>
+  <li>Netlify + FastAPI</li>
+</ul>
 
-Never commit real API keys.
+<hr>
 
-🚀 Deployment
+<h2>🏆 Future Enhancements</h2>
 
-You can deploy using:
+<ul>
+  <li>LLM-based conversational agent</li>
+  <li>Background weather animations</li>
+  <li>Multi-day forecasts</li>
+  <li>Full mobile UI</li>
+  <li>Wake-word detection (“Hey Weather”)</li>
+</ul>
 
-Render
+<hr>
 
-Railway
-
-Docker
-
-Vercel (frontend) + Render (backend)
-
-Netlify + FastAPI backend
-
-Dockerfile support can be added easily.
-
-🏆 Future Enhancements
-
-Add AI LLM-based conversational agent
-
-Add background weather animations
-
-Multi-day forecasts
-
-Full mobile UI
-
-Wake-word detection (“Hey Weather”)
-
-👩‍💻 Author
-
-Bhavya Nandwani
-B.Tech CSE-AI
+<h2>👩‍💻 Author</h2>
+<p>
+<strong>Bhavya Nandwani</strong><br>
+B.Tech CSE-AI<br>
 AI • Python • Full-Stack • Voice Interaction Systems
+</p>
