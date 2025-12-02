@@ -1,142 +1,202 @@
-<a href="https://livekit.io/">
-  <img src="./.github/assets/livekit-mark.png" alt="LiveKit logo" width="100" height="100">
-</a>
+Voice Weather Assistant — Python
+<a href="#"> <img src="./.github/assets/weather-icon.png" alt="Weather Assistant Logo" width="100" height="100"> </a>
 
-# LiveKit Agents Starter - Python
+A complete starter project for building a voice-controlled weather assistant using FastAPI, JavaScript Voice APIs, and OpenWeatherMap.
 
-A complete starter project for building voice AI apps with [LiveKit Agents for Python](https://github.com/livekit/agents) and [LiveKit Cloud](https://cloud.livekit.io/).
+This project demonstrates:
 
-The starter project includes:
+A fully functional voice-first weather assistant
 
-- A simple voice AI assistant, ready for extension and customization
-- A voice AI pipeline with [models](https://docs.livekit.io/agents/models) from OpenAI, Cartesia, and AssemblyAI served through LiveKit Cloud
-  - Easily integrate your preferred [LLM](https://docs.livekit.io/agents/models/llm/), [STT](https://docs.livekit.io/agents/models/stt/), and [TTS](https://docs.livekit.io/agents/models/tts/) instead, or swap to a realtime model like the [OpenAI Realtime API](https://docs.livekit.io/agents/models/realtime/openai)
-- Eval suite based on the LiveKit Agents [testing & evaluation framework](https://docs.livekit.io/agents/build/testing/)
-- [LiveKit Turn Detector](https://docs.livekit.io/agents/build/turns/turn-detector/) for contextually-aware speaker detection, with multilingual support
-- [Background voice cancellation](https://docs.livekit.io/home/cloud/noise-cancellation/)
-- Integrated [metrics and logging](https://docs.livekit.io/agents/build/metrics/)
-- A Dockerfile ready for [production deployment](https://docs.livekit.io/agents/ops/deployment/)
+Real-time speech-to-text and text-to-speech using browser APIs
 
-This starter app is compatible with any [custom web/mobile frontend](https://docs.livekit.io/agents/start/frontend/) or [SIP-based telephony](https://docs.livekit.io/agents/start/telephony/).
+Weather data fetched from the OpenWeatherMap API
 
-## Coding agents and MCP
+A clean and modern UI with glassmorphism styling
 
-This project is designed to work with coding agents like [Cursor](https://www.cursor.com/) and [Claude Code](https://www.anthropic.com/claude-code). 
+Natural-language understanding for extracting:
 
-To get the most out of these tools, install the [LiveKit Docs MCP server](https://docs.livekit.io/mcp).
+❓ Intent (current vs tomorrow forecast)
 
-For Cursor, use this link:
+🏙️ City name
 
-[![Install MCP Server](https://cursor.com/deeplink/mcp-install-light.svg)](https://cursor.com/en-US/install-mcp?name=livekit-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MubGl2ZWtpdC5pby9tY3AifQ%3D%3D)
+Easy frontend interaction powered by fetch
 
-For Claude Code, run this command:
+A backend built with FastAPI, ready for extension, deployment, and hosting
 
-```
-claude mcp add --transport http livekit-docs https://docs.livekit.io/mcp
-```
+This weather voice assistant is compatible with ANY custom web frontend and deployable on any hosting environment (Render, Vercel, Netlify, Railway, etc.).
 
-For Codex CLI, use this command to install the server:
-```
-codex mcp add --url https://docs.livekit.io/mcp livekit-docs
-```
+🎯 Project Overview
 
-For Gemini CLI, use this command to install the server:
-```
-gemini mcp add --transport http livekit-docs https://docs.livekit.io/mcp
-```
+This project includes:
 
-The project includes a complete [AGENTS.md](AGENTS.md) file for these assistants. You can modify this file  your needs. To learn more about this file, see [https://agents.md](https://agents.md).
+🎙️ Voice Weather Assistant with speech input + spoken output
 
-## Dev Setup
+🌦️ Real-time weather using the OpenWeatherMap API
 
-Clone the repository and install dependencies to a virtual environment:
+🧠 Lightweight NLU system (nlu.py)
 
-```console
-cd agent-starter-python
-uv sync
-```
+⚡ FastAPI backend (server/api.py)
 
-Sign up for [LiveKit Cloud](https://cloud.livekit.io/) then set up the environment by copying `.env.example` to `.env.local` and filling in the required keys:
+🎨 Beautiful modern UI (client/index.html + CSS + JS)
 
-- `LIVEKIT_URL`
-- `LIVEKIT_API_KEY`
-- `LIVEKIT_API_SECRET`
+🧪 Clean modular code structure
 
-You can load the LiveKit environment automatically using the [LiveKit CLI](https://docs.livekit.io/home/cli/cli-setup):
+🚀 Simple to run locally or deploy
 
-```bash
-lk cloud auth
-lk app env -w -d .env.local
-```
+📁 Project Structure
+project/
+│
+├── client/
+│   ├── index.html
+│   ├── app.js
+│   ├── style.css
+│
+├── server/
+│   └── api.py
+│
+├── src/
+│   ├── agent.py
+│   ├── test_agent.py
+│
+├── weather.py
+├── nlu.py
+├── local_agent.py
+├── .env.example
+└── README.md
 
-## Run the agent
+🧩 How It Works
+🔹 Voice Input
 
-Before your first run, you must download certain models such as [Silero VAD](https://docs.livekit.io/agents/build/turns/vad/) and the [LiveKit turn detector](https://docs.livekit.io/agents/build/turns/turn-detector/):
+Uses SpeechRecognition API to capture user speech, convert it to text, and send it to the FastAPI backend.
 
-```console
-uv run python src/agent.py download-files
-```
+🔹 Natural Language Understanding (NLU)
 
-Next, run this command to speak to your agent directly in your terminal:
+nlu.py extracts:
 
-```console
-uv run python src/agent.py console
-```
+The city
 
-To run the agent for use with a frontend or telephony, use the `dev` command:
+Whether the user asked for current weather or tomorrow’s forecast
 
-```console
-uv run python src/agent.py dev
-```
+🔹 Weather API
 
-In production, use the `start` command:
+weather.py fetches:
 
-```console
-uv run python src/agent.py start
-```
+Temperature
 
-## Frontend & Telephony
+Weather condition
 
-Get started quickly with our pre-built frontend starter apps, or add telephony support:
+Forecast
 
-| Platform | Link | Description |
-|----------|----------|-------------|
-| **Web** | [`livekit-examples/agent-starter-react`](https://github.com/livekit-examples/agent-starter-react) | Web voice AI assistant with React & Next.js |
-| **iOS/macOS** | [`livekit-examples/agent-starter-swift`](https://github.com/livekit-examples/agent-starter-swift) | Native iOS, macOS, and visionOS voice AI assistant |
-| **Flutter** | [`livekit-examples/agent-starter-flutter`](https://github.com/livekit-examples/agent-starter-flutter) | Cross-platform voice AI assistant app |
-| **React Native** | [`livekit-examples/voice-assistant-react-native`](https://github.com/livekit-examples/voice-assistant-react-native) | Native mobile app with React Native & Expo |
-| **Android** | [`livekit-examples/agent-starter-android`](https://github.com/livekit-examples/agent-starter-android) | Native Android app with Kotlin & Jetpack Compose |
-| **Web Embed** | [`livekit-examples/agent-starter-embed`](https://github.com/livekit-examples/agent-starter-embed) | Voice AI widget for any website |
-| **Telephony** | [📚 Documentation](https://docs.livekit.io/agents/start/telephony/) | Add inbound or outbound calling to your agent |
+🔹 Voice Output
 
-For advanced customization, see the [complete frontend guide](https://docs.livekit.io/agents/start/frontend/).
+Uses SpeechSynthesis API to speak the assistant’s response.
 
-## Tests and evals
+🛠️ Installation & Setup
+1️⃣ Clone the repo
+git clone https://github.com/your-username/WEATHER-AI.git
+cd WEATHER-AI
 
-This project includes a complete suite of evals, based on the LiveKit Agents [testing & evaluation framework](https://docs.livekit.io/agents/build/testing/). To run them, use `pytest`.
+2️⃣ Create a virtual environment
+Windows
+python -m venv venv
+.\venv\Scripts\activate
 
-```console
-uv run pytest
-```
+macOS / Linux
+python3 -m venv venv
+source venv/bin/activate
 
-## Using this template repo for your own project
+3️⃣ Install Python dependencies
+pip install -r requirements.txt
 
-Once you've started your own project based on this repo, you should:
+4️⃣ Add your API key
 
-1. **Check in your `uv.lock`**: This file is currently untracked for the template, but you should commit it to your repository for reproducible builds and proper configuration management. (The same applies to `livekit.toml`, if you run your agents in LiveKit Cloud)
+Create .env file:
 
-2. **Remove the git tracking test**: Delete the "Check files not tracked in git" step from `.github/workflows/tests.yml` since you'll now want this file to be tracked. These are just there for development purposes in the template repo itself.
+OPENWEATHER_KEY=YOUR_KEY_HERE
 
-3. **Add your own repository secrets**: You must [add secrets](https://docs.github.com/en/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/using-secrets-in-github-actions) for `LIVEKIT_URL`, `LIVEKIT_API_KEY`, and `LIVEKIT_API_SECRET` so that the tests can run in CI.
+🚀 Running the Project
+Start the FastAPI backend
+python -m uvicorn server.api:app --reload --host 127.0.0.1 --port 8000
 
-## Deploying to production
 
-This project is production-ready and includes a working `Dockerfile`. To deploy it to LiveKit Cloud or another environment, see the [deploying to production](https://docs.livekit.io/agents/ops/deployment/) guide.
+Backend health check:
+➡️ http://127.0.0.1:8000/health
 
-## Self-hosted LiveKit
+Start the frontend
 
-You can also self-host LiveKit instead of using LiveKit Cloud. See the [self-hosting](https://docs.livekit.io/home/self-hosting/) guide for more information. If you choose to self-host, you'll need to also use [model plugins](https://docs.livekit.io/agents/models/#plugins) instead of LiveKit Inference and will need to remove the [LiveKit Cloud noise cancellation](https://docs.livekit.io/home/cloud/noise-cancellation/) plugin.
+Open a new terminal:
 
-## License
+cd client
+python -m http.server 8080
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Frontend available at:
+➡️ http://127.0.0.1:8080
+
+📡 API Endpoints
+POST /agent/query
+
+Request:
+
+{ "text": "What's the weather in Mumbai?" }
+
+
+Response:
+
+{ "reply": "In Mumbai, it's 27°C and smoke." }
+
+🧪 Example Voice Queries
+
+Try speaking:
+
+“What’s the weather in Delhi?”
+
+“Will it rain tomorrow in Pune?”
+
+“Weather in Jaipur right now?”
+
+“Tell me tomorrow’s weather for Chennai.”
+
+🔐 Environment & Security
+
+This project includes:
+
+✔ .env.example (safe to commit)
+❌ .env is ignored automatically
+✔ OpenWeather API key stored securely
+
+Never commit real API keys.
+
+🚀 Deployment
+
+You can deploy using:
+
+Render
+
+Railway
+
+Docker
+
+Vercel (frontend) + Render (backend)
+
+Netlify + FastAPI backend
+
+Dockerfile support can be added easily.
+
+🏆 Future Enhancements
+
+Add AI LLM-based conversational agent
+
+Add background weather animations
+
+Multi-day forecasts
+
+Full mobile UI
+
+Wake-word detection (“Hey Weather”)
+
+👩‍💻 Author
+
+Bhavya Nandwani
+B.Tech CSE-AI
+AI • Python • Full-Stack • Voice Interaction Systems
